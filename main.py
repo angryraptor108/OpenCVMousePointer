@@ -1,7 +1,7 @@
 import cv2
-#from cvzone.HandTrackingModule import HandDetector
+from cvzone.HandTrackingModule import HandDetector
 
-#detector = HandDetector(detectionCon=0.9, maxHands=1)
+detector = HandDetector(detectionCon=0.9, maxHands=1)
 
 cap = cv2.VideoCapture(0)
 
@@ -14,7 +14,7 @@ while True:
     if not sucess:
         break
     img = cv2.flip(img, 1)
-    #hands, img = detector.findHands(img, flipType=False)
+    hands, img = detector.findHands(img, flipType=False)
 
 
 
