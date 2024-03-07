@@ -43,8 +43,12 @@ while True:
             pyatogui.moveTo(conv_x, conv_y, 0.1) #using pyautogui to move mouse instead of mouse because macOS doesn't support mouse
             #mouse.move(conv_x, conv_y) #using mouse gives Darwin erorr on macOS
 
-        if fingers[1] == 1 and fingers[2] == 0 and fingers[0] == 0:
-            length, img, lineInfo = detector_hand.findDistance(lmlist[8], lmlist[4], img)
+
+        # FIX THIS
+        #if fingers[1] == 1 and fingers[2] == 0 and fingers[0] == 0:
+            #length, img, lineInfo = detector_hand.findDistance(lmlist[8], lmlist[4], img)
+            
+            
             #print(length)
             #if length < 30:
                 #cv2.circle(img, (lineInfo[4], lineInfo[5]), 15, (0, 255, 0), cv2.FILLED)
