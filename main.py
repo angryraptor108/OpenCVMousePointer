@@ -18,6 +18,7 @@ frameR = 100 # frame reduction value
 
 while True:
     #print(pyatogui.position())
+    pyatogui.PAUSE = 0.00
     
     sucess, img = cap.read() 
     if not sucess:
@@ -42,6 +43,7 @@ while True:
             conv_x = int(np.interp(ind_x, [frameR, cam_w-frameR], [0, 1920])) #subtracting frame reduction to avoid jitter
             conv_y = int(np.interp(ind_y, [frameR, cam_h-frameR], [0, 1080]))
             pynput.mouse.Controller().position = (conv_x, conv_y)
+            
             #pyatogui.moveTo(conv_x, conv_y, 0.1) #using pyautogui to move mouse instead of mouse because macOS doesn't support mouse
             #mouse.move(conv_x, conv_y) #using mouse gives Darwin erorr on macOS
 
