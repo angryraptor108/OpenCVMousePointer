@@ -2,6 +2,7 @@ import cv2
 #import mouse
 import pyautogui as pyatogui
 import numpy as np
+import pynput
 
 from cvzone.HandTrackingModule import HandDetector
 
@@ -40,7 +41,8 @@ while True:
             #print("mouse (x,y): (" + str(ind_x) + ",", str(ind_y) + ")")
             conv_x = int(np.interp(ind_x, [frameR, cam_w-frameR], [0, 1920])) #subtracting frame reduction to avoid jitter
             conv_y = int(np.interp(ind_y, [frameR, cam_h-frameR], [0, 1080]))
-            pyatogui.moveTo(conv_x, conv_y, 0.1) #using pyautogui to move mouse instead of mouse because macOS doesn't support mouse
+            pynput.mouse.Controller().position = (conv_x, conv_y)
+            #pyatogui.moveTo(conv_x, conv_y, 0.1) #using pyautogui to move mouse instead of mouse because macOS doesn't support mouse
             #mouse.move(conv_x, conv_y) #using mouse gives Darwin erorr on macOS
 
 
