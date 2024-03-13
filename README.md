@@ -2,7 +2,7 @@
 
 using openCV for accessibility.
 
-![](https://github.com/angryraptor108/ai_accessibilitytool/blob/gif/videodemo.gif)
+![](https://github.com/angryraptor108/ai_accessibilitytool/blob/main/videodemo.gif)
 
 ## Mouse
 
