@@ -7,8 +7,18 @@ import time
 
 from cvzone.HandTrackingModule import HandDetector
 
+def get_slope(p1, p2) -> float:
+    x1, y1 = p1
+    x2, y2 = p2
+
+    if (x2-x1) != 0:
+        return ((y1-y2)/(x2-x1))
+    else:
+        return 1000
+
 detector_hand = HandDetector(detectionCon=0.9, maxHands=1)
 last_click_time = time.monotonic() # keep track of time since last mouse click
+last_keyboard_time = time.monotonic() # keep track of time since last keyboard click
 
 cap = cv2.VideoCapture(0)
 
@@ -56,17 +66,29 @@ while True:
         if fingers[1] == 1 and fingers[2] == 0 and fingers[0] == 0:
             length, lineInfo, img = detector_hand.findDistance(lmlist[8][::2], lmlist[4][::2], img)
             
-            
-            print(length)
+            #print(length)
             cv2.circle(img, (lineInfo[4], lineInfo[5]), 15, (255, 255, 0), cv2.FILLED)
 
             if length > 30:
                 if time.monotonic() - last_click_time >= 1: # prevent spam clicking
                     pynput.mouse.Controller().click(pynput.mouse.Button.left)
                     last_click_time = time.monotonic()
-                
-                
-                
+        
+        if fingers[1] == 1 and fingers[2] == 1:
+            slope = get_slope(lmlist[5][::2], lmlist[8][::2])
+            #print(slope)
+
+            if (slope < 0.8) and (slope > 0.1) and (time.monotonic() - last_keyboard_time >= 1): # swipe right
+                pyatogui.keyDown('ctrl')
+                pyatogui.press('right')
+                pyatogui.keyUp('ctrl')
+                last_keyboard_time = time.monotonic()
+            elif (slope < -0.1) and (slope >-0.8) and (time.monotonic() - last_keyboard_time >= 1):
+                pyatogui.keyDown('ctrl')
+                pyatogui.press('left')
+                pyatogui.keyUp('ctrl')
+                last_keyboard_time = time.monotonic()
+
         
         #distance = ((lmlist[8][0] - lmlist[5][0])**2 + (lmlist[8][1] - lmlist[5][1])**2)**0.5
         #print(distance)
