@@ -3,10 +3,12 @@ import cv2
 import pyautogui as pyatogui
 import numpy as np
 import pynput
+import time
 
 from cvzone.HandTrackingModule import HandDetector
 
 detector_hand = HandDetector(detectionCon=0.9, maxHands=1)
+last_click_time = time.monotonic() # keep track of time since last mouse click
 
 cap = cv2.VideoCapture(0)
 
@@ -48,15 +50,23 @@ while True:
             #mouse.move(conv_x, conv_y) #using mouse gives Darwin erorr on macOS
 
 
-        # FIX THIS
-        #if fingers[1] == 1 and fingers[2] == 0 and fingers[0] == 0:
-            #length, img, lineInfo = detector_hand.findDistance(lmlist[8], lmlist[4], img)
+        #x, y, z = lmlist[8]
+
+        #print(lmlist[8])
+        if fingers[1] == 1 and fingers[2] == 0 and fingers[0] == 0:
+            length, lineInfo, img = detector_hand.findDistance(lmlist[8][::2], lmlist[4][::2], img)
             
             
-            #print(length)
-            #if length < 30:
-                #cv2.circle(img, (lineInfo[4], lineInfo[5]), 15, (0, 255, 0), cv2.FILLED)
-                #pyatogui.click()
+            print(length)
+            cv2.circle(img, (lineInfo[4], lineInfo[5]), 15, (255, 255, 0), cv2.FILLED)
+
+            if length > 30:
+                if time.monotonic() - last_click_time >= 1: # prevent spam clicking
+                    pynput.mouse.Controller().click(pynput.mouse.Button.left)
+                    last_click_time = time.monotonic()
+                
+                
+                
         
         #distance = ((lmlist[8][0] - lmlist[5][0])**2 + (lmlist[8][1] - lmlist[5][1])**2)**0.5
         #print(distance)
