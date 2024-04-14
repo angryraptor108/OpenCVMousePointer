@@ -76,7 +76,7 @@ while True:
         
         if fingers[1] == 1 and fingers[2] == 1:
             slope = get_slope(lmlist[5][::2], lmlist[8][::2])
-            #print(slope)
+            print(slope)
 
             if (slope < 0.8) and (slope > 0.1) and (time.monotonic() - last_keyboard_time >= 1): # swipe right
                 pyatogui.keyDown('ctrl')
