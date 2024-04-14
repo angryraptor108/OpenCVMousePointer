@@ -1,8 +1,8 @@
 # OpenCVMousePointer
 
-using openCV for accessibility.
+Using OpenCV for accessibility.
 
-![](https://github.com/angryraptor108/ai_accessibilitytool/blob/gif/videodemo.gif)
+<img width="1494" alt="image" src="https://github.com/angryraptor108/ai_accessibilitytool/blob/main/videodemo.gif">
 
 ## Mouse
 
